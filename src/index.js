@@ -1,17 +1,29 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
+import {render} from 'react-dom';
+import './styles/index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { StateProvider } from './core/Context/StateProvider';
+import reducer, {initialState} from './core/Context/reducer'
+import { Provider } from 'react-redux';
+import store from './core/redux/index';
+import { createBrowserHistory } from "history";
+import { Router } from "react-router-dom";
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+const customHistory = createBrowserHistory();
+
+render(
+  
+ 
+   <Router history={customHistory}>
+  <Provider store={store}>
+  <StateProvider initialState={initialState } reducer = {reducer}>
+    <App className="App"/>
+    </StateProvider>
+  </Provider>
+  </Router>,
   document.getElementById('root')
+  
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+
+
